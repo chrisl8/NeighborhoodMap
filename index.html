@@ -4,23 +4,14 @@
     <style type="text/css">
       html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
     </style>
+    <script src="knockout-3.3.0.js"></script>
     <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3SeVYeAsMOQ96Hl_LTxogcES34KpiNtE">
     </script>
-    <script type="text/javascript">
-      function initialize() {
-        var mapOptions = {
-          // 37.686024, -97.335583
-          center: { lat: 37.686024, lng: -97.335583},
-          zoom: 15
-        };
-        var map = new google.maps.Map(document.getElementById('map-canvas'),
-            mapOptions);
-      }
-      google.maps.event.addDomListener(window, 'load', initialize);
-    </script>
+    <script type="text/javascript" src="neighborhood.js"></script>
   </head>
   <body>
 <div id="map-canvas"></div>
+<ul id="location-list" data-bind="foreach: locationList"></ul>
   </body>
 </html>
