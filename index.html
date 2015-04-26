@@ -1,17 +1,30 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <style type="text/css">
-      html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
-    </style>
-    <script src="knockout-3.3.0.js"></script>
-    <script type="text/javascript"
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3SeVYeAsMOQ96Hl_LTxogcES34KpiNtE">
-    </script>
-    <script type="text/javascript" src="neighborhood.js"></script>
-  </head>
-  <body>
-<div id="map-canvas"></div>
-<ul id="location-list" data-bind="foreach: locationList"></ul>
-  </body>
+<head>
+  <link rel="stylesheet" href="neighborhood.css">
+  <title>Neighhood Map Class Project</title>
+</head>
+<body>
+  <div id="map-canvas"></div>
+  <div id="overlay">
+    <form id='searchForm' name='searchForm'>
+      <label for="locationSearch"></label>
+      <input type="text" name="locationSearch" id="locationSearch" placeholder="Search" data-bind="textInput: locSearchString"/>
+    </form>
+    <ul id="location-list" data-bind="foreach: locationList">
+    <!-- Putting the data-bind in a span prevents the click and the
+     cursor attribute from applying to the entire width of the <li> tag -->
+      <li><span data-bind="text: $data, click: $parent.searchForArticle" id="clickableText"></span></li>
+    </ul>
+    <div id="article" data-bind="visible: showArticle">
+    <p data-bind="text: wikiPediaArticle"></p>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+  <script src="knockout-3.3.0.js"></script>
+  <script type="text/javascript"
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3SeVYeAsMOQ96Hl_LTxogcES34KpiNtE">
+</script>
+<script type="text/javascript" src="neighborhood.js"></script>
+</body>
 </html>
