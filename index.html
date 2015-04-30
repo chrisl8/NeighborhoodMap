@@ -11,9 +11,9 @@
       <label for="locationSearch"></label>
       <input type="text" name="locationSearch" id="locationSearch" placeholder="Search" data-bind="textInput: locSearchString"/>
     </form>
-    <ul id="location-list" data-bind="foreach: locationList">
     <!-- Putting the data-bind in a span prevents the click and the
      cursor attribute from applying to the entire width of the <li> tag -->
+    <ul id="location-list" data-bind="foreach: locationList">
       <li><span data-bind="text: $data, click: $parent.searchForArticle" id="clickableText"></span></li>
     </ul>
     <div id="article" data-bind="visible: showArticle">

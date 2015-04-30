@@ -21,8 +21,41 @@ var locations = [
     ['Wichita Art Museum', 37.695005, -97.356018, 11]
 ];
 
+var markers = [];
+
 var ViewModel = function() {
     var self = this;
+
+    var mapOptions = {
+        // 37.689768, -97.338209
+        center: {
+            lat: 37.689768,
+            lng: -97.338209
+        },
+        zoom: 15
+    };
+
+    var map = new google.maps.Map(document.getElementById('map-canvas'),
+        mapOptions);
+
+    for (var i = 0; i < locations.length; i++) {
+        var location = locations[i];
+        var myLatLng = new google.maps.LatLng(location[1], location[2]);
+        var marker = new google.maps.Marker({
+            position: myLatLng,
+            //map: map,
+            //icon: image,
+            //shape: shape,
+            animation: google.maps.Animation.DROP,
+            title: location[0],
+            zIndex: location[3]
+        });
+        markers.push(marker);
+    }
+    markers.forEach(function(value) {
+        value.setMap(map);
+    });
+
 
     this.locSearchString = ko.observable('');
 
@@ -37,6 +70,9 @@ var ViewModel = function() {
             locations.forEach(function(locationItem) {
                 list.push(locationItem[0]);
             });
+            markers.forEach(function(value) {
+                value.setMap(map);
+            });
             return list;
         } else {
             locations.forEach(function(locationItem) {
@@ -44,6 +80,13 @@ var ViewModel = function() {
                     list.push(locationItem[0]);
                 }
             }, this);
+            markers.forEach(function(value) {
+                if (list.indexOf(value.title) >= 0) {
+                    value.setMap(map);
+                } else {
+                    value.setMap(null);
+                }
+            });
             return list;
         }
     }, this);
@@ -68,40 +111,7 @@ var ViewModel = function() {
     };
 };
 
-function initialize() {
-    var mapOptions = {
-        // 37.689768, -97.338209
-        center: {
-            lat: 37.689768,
-            lng: -97.338209
-        },
-        zoom: 15
-    };
-    var map = new google.maps.Map(document.getElementById('map-canvas'),
-        mapOptions);
-
-    //  var marker = new google.maps.Marker({
-    //    map:map,
-    //    draggable: true,
-    //    animation: google.maps.Animation.DROP,
-    //    position: locations.MakeICT
-    //  });
-
-    for (var i = 0; i < locations.length; i++) {
-        var location = locations[i];
-        var myLatLng = new google.maps.LatLng(location[1], location[2]);
-        var marker = new google.maps.Marker({
-            position: myLatLng,
-            map: map,
-            //icon: image,
-            //shape: shape,
-            animation: google.maps.Animation.DROP,
-            title: location[0],
-            zIndex: location[3]
-        });
-    }
-}
-google.maps.event.addDomListener(window, 'load', initialize);
+google.maps.event.addDomListener(window, 'load');
 /* If you get the error:
 Uncaught TypeError: Cannot read property 'nodeType' of null
 It means your script was executed before the HTML was rendered,
