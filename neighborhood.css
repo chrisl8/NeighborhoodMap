@@ -6,7 +6,7 @@ html, body, #map-canvas {
 #overlay {
   position: absolute;
   width: 200px;
-  top: 245px;
+  top: 40%;
   left: 75px;
   background-color: wheat;
   opacity: .9;
@@ -26,10 +26,23 @@ ul {
 #article
 {
   position: fixed;
-top: 10%;
+  top: 10%;
   left: 50%;
   width: 25%;
   padding: 10px;
   background-color: white;
   opacity: .99;
+}
+@media (max-width: 600px) {
+  #article {
+      position: absolute;
+      width: 200px;
+      top: 10px;
+      left: 200px;
+  }
+}
+@media (max-height: 600px) {
+  #overlay {
+      top: 10px;
+  }
 }

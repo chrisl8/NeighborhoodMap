@@ -1,12 +1,3 @@
-/* TODO:
-   1. Map markers should:
-    a. Dissapear during a search just like unfound items.
-    b. "Highlight" when they are clicked in the list.
-    c. Be clickable to behave the same way as the list items are.
-  2. Search other locations besides Wikipedia, and display both,
-  or only the ones with actual results.
-    */
-
 var locations = [
     ['MakeICT', 37.686291, -97.319418, 1],
     ['The Keeper of the Plains', 37.691342, -97.349687, 2],
@@ -27,7 +18,7 @@ var ViewModel = function() {
     var self = this;
 
     var mapOptions = {
-        // 37.689768, -97.338209
+        // 37.689768, -97.338209 is downtown Wichita, KS
         center: {
             lat: 37.689768,
             lng: -97.338209
@@ -44,7 +35,8 @@ var ViewModel = function() {
         var marker = new google.maps.Marker({
             position: myLatLng,
             //map: map,
-            //icon: image,
+            // icon: must be set to a null string in order to change it later.
+            icon: '',
             //shape: shape,
             animation: google.maps.Animation.DROP,
             title: location[0],
@@ -54,8 +46,10 @@ var ViewModel = function() {
     }
     markers.forEach(function(value) {
         value.setMap(map);
+        google.maps.event.addListener(value, 'click', function() {
+            self.searchForArticle(value.title);
+        });
     });
-
 
     this.locSearchString = ko.observable('');
 
@@ -75,6 +69,8 @@ var ViewModel = function() {
             });
             return list;
         } else {
+            // Clear any marker highlights if search text is entered
+            self.highlightMarker('');
             locations.forEach(function(locationItem) {
                 if (locationItem[0].toLowerCase().indexOf(this.locSearchString().toLowerCase()) >= 0) {
                     list.push(locationItem[0]);
@@ -93,15 +89,39 @@ var ViewModel = function() {
 
     this.wikiPediaArticle = ko.observable();
 
+    this.highlightMarker = function(text) {
+        markers.forEach(function(value, index) {
+            if (text == value.title) {
+                markers[index].icon = 'http://maps.google.com/intl/en_us/mapfiles/ms/micons/orange.png';
+                // Clear and redisplay the marker to activate the new icon:
+                value.setMap(null);
+                value.setMap(map);
+            } else {
+                // Only reset and reanimate the previously highlighted marker,
+                // not all of them:
+                if (markers[index].icon !== '') {
+                    markers[index].icon = '';
+                    value.setMap(null);
+                    value.setMap(map);
+                }
+            }
+        });
+    };
+
     this.searchForArticle = function(location) {
+        self.highlightMarker(location);
         // URL For WikiPedia search.
-        var wikipediaURL = "http://en.wikipedia.org/w/api.php?action=opensearch&search=" + location + "&format=json";
+        var wikipediaURL = 'http://en.wikipedia.org/w/api.php?action=opensearch&search=' + location + '&format=json';
         // Using dataType: jsonp will tell jQuery to turn this into a JSONP request
         $.ajax(wikipediaURL, {
             dataType: 'jsonp'
         })
             .done(function(data) {
-                self.wikiPediaArticle(data[2][0]);
+                if (data[2][0] != null) {
+                    self.wikiPediaArticle(data[2][0]);
+                } else {
+                    self.wikiPediaArticle('No WikiPedia article found.');
+                }
                 self.showArticle(true);
             })
             .fail(function() {
