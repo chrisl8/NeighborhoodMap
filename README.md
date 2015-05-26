@@ -1,6 +1,8 @@
 Neighborhood Map Project
 ========================
 
+![Alt text](/screenshots/neighborhoodmapscreenshot.png?raw=true "Screenshot")
+
 This project uses Google Maps API and Wikipedia's API to present a local map of my city with some preselected areas of interest.
 
 # Usage
