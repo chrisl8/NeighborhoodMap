@@ -1,16 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" href="styles/neighborhood.min.css">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Neighhood Map Class Project</title>
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="styles/neighborhood.min.css">
 </head>
 <body>
-  <div id="map-canvas"></div>
-  <div id="overlay">
-    <form id='searchForm' name='searchForm'>
-      <label for="locationSearch"></label>
-      <input type="text" name="locationSearch" id="locationSearch" placeholder="Search" data-bind="textInput: locSearchString"/>
-    </form>
+  <nav class="navbar navbar-inverse navbar-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand" href="#">Neighborhood Map</span>
+      <form id='searchForm' name='searchForm'>
+          <label for="locationSearch"></label>
+          <input type="text" name="locationSearch" id="locationSearch" placeholder="Search" data-bind="textInput: locSearchString" class="form-control"/>
+        </form>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
     <!-- Putting the data-bind in a span prevents the click and the
     cursor attribute from applying to the entire width of the <li> tag -->
     <ul id="location-list" data-bind="foreach: locationList">
@@ -18,11 +33,22 @@
     </ul>
     <div id="article" data-bind="visible: showArticle">
       <p data-bind="text: wikiPediaArticle"></p>
-    </div>
   </div>
-  <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-  <script type="text/javascript"
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3SeVYeAsMOQ96Hl_LTxogcES34KpiNtE">
-</script><script src="scripts/main.min.js"></script>
-</body>
-</html>
+  </div><!--/.navbar-collapse -->
+</div>
+</nav>
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+  <div id="map-canvas"></div>
+</div>
+
+<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3SeVYeAsMOQ96Hl_LTxogcES34KpiNtE"></script><script src="scripts/main.min.js"></script>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  </body>
+  </html>

@@ -212,6 +212,7 @@ var ViewModel = function() {
                 // Clear and redisplay the marker to activate the new icon:
                 value.setMap(null);
                 value.setMap(map);
+                map.setCenter(markers[index].getPosition());
             } else {
                 // Only reset and reanimate the previously highlighted marker,
                 // not all of them:
@@ -233,7 +234,7 @@ var ViewModel = function() {
             dataType: 'jsonp'
         })
             .done(function(data) {
-                if (data[2][0] !== null) {
+                if (data[2][0] !== undefined) {
                     self.wikiPediaArticle(data[2][0]);
                 } else {
                     self.wikiPediaArticle('No WikiPedia article found.');
