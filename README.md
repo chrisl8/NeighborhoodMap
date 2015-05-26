@@ -3,31 +3,31 @@ Neighborhood Map Project
 
 This project uses Google Maps API and Wikipedia's API to present a local map of my city with some preselected areas of interest.
 
-Usage
-#####
+# Usage
 The project is pre-built and all files are in the dist/ folder.
-You can double click in dist/index.html to load the app locally.
-You can point your web server, such as LAMP, at dist/ to run the app from a server.
+You can double click on dist/index.html to load the app locally,
+or you can point your web server, such as LAMP, at dist/ to run the app from a server.
 
-Node Web Server
-###############
+# Node Web Server
 If you have node installed, and you want to serve the files without installing a web server run:
+
     npm install
+
 Then:
+
     node webServer
-To start a node based web server right from the repository!
+
+To start a node based web server right from the cloned source!
 Then point your browser at http://localhost:8080 to see the app.
 
-Build
-#####
+# Build
 
 To rebuild the project yourself from scratch run:
+
     npm install
     gulp
-or a node.js or Python based web server.
 
-Site Usage
-##########
+# Site Usage
 You can click on an entry in the list,
 or click on a marker,
 or type in the text box to search the list.
