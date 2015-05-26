@@ -96,6 +96,7 @@ var ViewModel = function() {
                 // Clear and redisplay the marker to activate the new icon:
                 value.setMap(null);
                 value.setMap(map);
+                map.setCenter(markers[index].getPosition());
             } else {
                 // Only reset and reanimate the previously highlighted marker,
                 // not all of them:
