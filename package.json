@@ -4,9 +4,7 @@
   "description": "A local neighborhood map web application.",
   "main": "index.html",
   "dependencies": {
-    "express": "^4.12.4",
-    "gulp": "^3.8.11",
-    "gulp-uglify": "^1.2.0"
+    "express": "^4.12.4"
   },
   "devDependencies": {
     "del": "^1.2.0",
