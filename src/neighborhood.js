@@ -117,7 +117,7 @@ var ViewModel = function() {
             dataType: 'jsonp'
         })
             .done(function(data) {
-                if (data[2][0] != null) {
+                if (data[2][0] !== undefined) {
                     self.wikiPediaArticle(data[2][0]);
                 } else {
                     self.wikiPediaArticle('No WikiPedia article found.');
